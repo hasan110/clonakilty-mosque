@@ -19,7 +19,14 @@
   <link rel="stylesheet" href="assets/gallery/style.css">
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
   
-  
+  <style>
+  #special-days-table h2 {
+	font-size: 18px;
+  }
+  #special-days-table h4 {
+	font-size: 16px;
+  }
+  </style>
   
 </head>
 <body>
@@ -151,15 +158,15 @@
                             <div class="card-header" role="tab" id="headingTwo">
                                 <a role="button" class="collapsed panel-title text-black" data-toggle="collapse" data-parent="#accordion" data-core="" href="#collapse2_9" aria-expanded="false" aria-controls="collapse2">
                                     <h4 class="mbr-fonts-style display-5">
-                                        <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> Prayer Timings
+                                        <span class="sign mbr-iconfont mbri-arrow-down inactive"></span> Special Days
                                     </h4>
                                 </a>
 
                             </div>
                             <div id="collapse2_9" class="panel-collapse noScroll collapse" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="panel-body p-4">
-                                    <p class="mbr-fonts-style panel-text display-7">
-                                       <table class="prayer-times" border="0"><tbody><tr><td colspan="2">4 Dhul-Hijjah 1435</td></tr><tr><td>Fajr </td><td>5:38 am</td></tr><tr><td>Sunrise </td><td>12:44 am</td></tr><tr><td>Dhuhr </td><td>12:44 pm</td></tr><tr><td>Ashr </td><td>4:08 pm</td></tr><tr><td>Maghrib </td><td>6:42 pm</td></tr><tr><td>Isha </td><td>7:50 pm</td></tr></tbody></table>
+                                    <p class="mbr-fonts-style panel-text display-7 special-days">
+                                       
 									   </p>
                                 </div>
                             </div>
@@ -289,8 +296,25 @@
             <div class="media-container-column title col-12 col-md-10">
                 <h2 class="align-left mbr-bold mbr-white pb-3 mbr-fonts-style display-2">Help Our Cause</h2>
                 <h3 class="mbr-section-subtitle align-left mbr-light mbr-white pb-3 mbr-fonts-style display-5">Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission</h3>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="edit_selector">
+<input type="hidden" name="cmd" value="_donations">
+<input type="hidden" name="business" value="Hassanqureshi93@outlook.com">
+<input type="hidden" name="item_name" value="Clonakilty Mosque">
+<input type="hidden" name="amount" value="0.00">
+<input type="hidden" name="currency_code" value="EUR">
+<input type="hidden" name="rm" value="0">
+<input type="hidden" name="return" value="http://clonakiltymosque.godaddysites.com/">
+
+
+<input type="hidden" name="cancel_return" value="http://clonakiltymosque.godaddysites.com/">
+<input type="hidden" name="cbt" value="Return to Clonakilty Mosque">
+<div>
+	<div class="mbr-section-btn align-left py-4"><button name="submit" class="btn btn-primary display-4" href="index.html#info3-5">DONATE NOW</a></button>
+</div>
+</form>
+				
                 
-                <div class="mbr-section-btn align-left py-4"><a class="btn btn-primary display-4" href="index.html#info3-5">DONATE NOW</a></div>
             </div>
         </div>
     </div>
@@ -415,22 +439,32 @@
   <script src="assets/gallery/player.min.js"></script>
   <script src="assets/gallery/script.js"></script>
   <script src="assets/formoid/formoid.min.js"></script>
-  <script src="http://malsup.github.com/jquery.form.js"></script> 
+  <!-- <script src="assets/web/assets/jquery/jquery.xdomainajax.js"></script> -->
   <script>
-var ajaxUrl = "https://www.islamicfinder.org/prayer-widget/5368361/shafi/north-america/";
+var urlTimings = "https://www.islamicfinder.org/prayer-widget/5368361/shafi/north-america/";
+var urlDays = "https://www.islamicfinder.org/specialislamicdays";
 $.ajaxPrefilter( function (options) {
   if (options.crossDomain && jQuery.support.cors) {
 	var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
 	options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
   }
 });
-
+$('.prayer-timings, .special-days').html('<h4>Loading...</h4>');
 $.get(
-    ajaxUrl,
+    urlTimings,
     function (response) {
     var div = $(response).filter(function(){ return $(this).is('div') })[0];
-	$('.prayer-timings').html($(div).find('table'));
+	var table = $(div).find('table');
+	$('.prayer-timings').html(table);
 });
+
+$.get(
+    urlDays,
+    function (response) {
+    var div = $(response).filter(function(){ return $(this).is('section') })[0];
+	$('.special-days').html($(div).find('table').removeClass('text-center'));
+});
+
   </script>
   
  <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i></i></a></div>
